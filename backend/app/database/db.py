@@ -7,7 +7,10 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 
 # Fallback to local SQLite if DATABASE_URL is not set
 if not DATABASE_URL:
-    DATABASE_URL = "sqlite:///./mylapore_smart.db"
+    if os.getenv("VERCEL") == "1":
+        DATABASE_URL = "sqlite:////tmp/mylapore_smart.db"
+    else:
+        DATABASE_URL = "sqlite:///./mylapore_smart.db"
 
 # Workaround for Render/Supabase postgresql protocol
 if DATABASE_URL.startswith("postgres://"):
