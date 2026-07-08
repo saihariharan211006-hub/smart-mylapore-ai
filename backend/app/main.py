@@ -1,4 +1,9 @@
+import sys
+import os
 import mimetypes
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+
 mimetypes.add_type("application/javascript", ".jsx")
 mimetypes.add_type("application/javascript", ".tsx")
 mimetypes.add_type("application/javascript", ".ts")
