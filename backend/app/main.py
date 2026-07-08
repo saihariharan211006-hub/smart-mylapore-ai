@@ -12,7 +12,7 @@ from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import List, Dict, Any, Optional
-from datetime import datetime
+from datetime import datetime, timezone
 
 from backend.app.ml.predict import get_predictions, load_metrics_if_exists, SOURCE_DEST_MAP, WEATHER_MAP
 from backend.app.database.db import save_prediction_record, save_feedback_record, get_prediction_history
@@ -166,7 +166,7 @@ async def predict_traffic_and_parking(request: PredictionRequest):
     
     return {
         "prediction_id": prediction_id,
-        "timestamp": datetime.utcnow().isoformat(),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
         "input_summary": {
             "source": SOURCE_DEST_MAP.get(src_code),
             "destination": SOURCE_DEST_MAP.get(dest_code),
